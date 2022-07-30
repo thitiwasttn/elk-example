@@ -3,3 +3,5 @@ https://medium.com/linedevth/%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8
 https://stackoverflow.com/questions/51445846/elasticsearch-max-virtual-memory-areas-vm-max-map-count-65530-is-too-low-inc
 
 https://auth0.com/blog/spring-boot-logs-aggregation-and-monitoring-using-elk-stack/
+
+docker run -p 127.0.0.1:5601:5601 -p 127.0.0.1:9200:9200 -p 127.0.0.1:5044:5044 --memory=4000m --name elk7 elk
