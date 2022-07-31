@@ -4,4 +4,37 @@ https://stackoverflow.com/questions/51445846/elasticsearch-max-virtual-memory-ar
 
 https://auth0.com/blog/spring-boot-logs-aggregation-and-monitoring-using-elk-stack/
 
-docker run -p 127.0.0.1:5601:5601 -p 127.0.0.1:9200:9200 -p 127.0.0.1:5044:5044 --memory=4000m --name elk7 elk
+
+docker build --tag elk .
+
+
+docker run -p 127.0.0.1:5601:5601 -p 127.0.0.1:9200:9200 -p 127.0.0.1:5044:5044 -v elk-data:/var/lib/elasticsearch --memory=4000m --name elk7 elk
+
+
+- edit: /etc/elasticsearch/elasticsearch.yml
+- add two lines
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+- restart
+
+- edit: /opt/kibana/config/kibana.yml
+elasticsearch.username: "kibana_system"
+elasticsearch.password: "Abc1234"
+
+- goto: /opt/elasticsearch/bin
+run: elasticsearch-setup-passwords interactive
+add password to Abc1234
+
+// for logstash 
+output {
+  elasticsearch {
+    hosts => ["localhost"]
+    user => 'elastic'
+    password => 'Abc1234'
+    manage_template => false
+    index => "elk-%{+YYYY.MM.dd}"
+  }
+}
+
+เอาไว้ตั้งค่าให้ container connet to 5043 ได้
+sudo ufw allow from any to 172.17.0.1 port 5043
