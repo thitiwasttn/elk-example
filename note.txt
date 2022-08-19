@@ -40,3 +40,7 @@ output {
 
 เอาไว้ตั้งค่าให้ container connet to 5043 ได้
 sudo ufw allow from any to 172.17.0.1 port 5043
+
+
+ถ้า run แบบ set password ไว้แล้ว 
+docker run -p 127.0.0.1:5601:5601 -p 127.0.0.1:9200:9200 -p 127.0.0.1:5044:5044 -v elk-data:/var/lib/elasticsearch --memory=4000m --name elk thitiwas007007/elk:0.1
